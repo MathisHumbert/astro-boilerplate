@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { lenis } from "../classes/Scroll";
 import { isDev } from "../utils/config";
 import { easeOut } from "../utils/easing";
+import { delay } from "../utils/math";
 
 export default class Transition {
   constructor({ onContentReplaced, onLoadPage }) {
@@ -19,7 +20,6 @@ export default class Transition {
   createSwup() {
     this.swup = new Swup({
       animateHistoryBrowsing: true,
-      animationSelector: false,
       plugins: [
         new SwupHeadPlugin({
           persistAssets: true,
@@ -33,13 +33,19 @@ export default class Transition {
       ],
     });
 
-    this.swup.hooks.on("animation:out:start", () => {
+    this.swup.hooks.on("animation:out:start", async () => {
       lenis.stop();
 
-      return this.animateOut();
+      document.documentElement.classList.remove("is-ready");
+
+      await delay(500);
+
+      // return this.animateOut();
     });
 
     this.swup.hooks.on("content:replace", () => {
+      lenis.scrollTo(0, { immediate: true, force: true });
+
       if (this.onContentReplaced) {
         this.onContentReplaced();
       }
@@ -50,9 +56,11 @@ export default class Transition {
         await this.onLoadPage();
       }
 
+      document.documentElement.classList.add("is-ready");
+
       lenis.start();
 
-      return this.animateIn();
+      // return this.animateIn();
     });
   }
 

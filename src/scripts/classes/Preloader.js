@@ -12,6 +12,8 @@ export default class Preloader {
     const preloadFonts = this.loadFonts();
 
     Promise.all([preloadImages, preloadFonts]).then(() => {
+      document.documentElement.classList.add("is-ready");
+
       events.emit("loaded");
     });
   }

@@ -63,13 +63,23 @@ body {
   position: relative;
   width: 100vw;
   height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
   z-index: var(--z-content);
 }
 
-html.loaded .content {
+html.is-ready .content {
   opacity: 1;
 }
 
+html.is-changing .content {
+  transition: opacity 0.25s var(--ease-out);
+  opacity: 1;
+}
+
+html.is-animating .content {
+  opacity: 0;
+}
 .page {
   position: relative;
   width: 100%;

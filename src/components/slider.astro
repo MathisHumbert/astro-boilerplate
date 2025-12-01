@@ -9,7 +9,7 @@ interface Props {
 const { images } = Astro.props;
 ---
 
-<section class:list={["w-full flex flex-col gap-8 p-grid", "slider"]}>
+<astro-slider class="w-full flex flex-col gap-8 p-grid">
   <h2 class="text-xs uppercase">Slider</h2>
   <div class="w-full max-w-full overflow-hidden">
     <div data-slider class="flex ml-col-3">
@@ -39,18 +39,42 @@ const { images } = Astro.props;
       }
     </div>
   </div>
-</section>
+</astro-slider>
 
 <script>
   import Core from "smooothy";
-  import gsap from "gsap";
 
-  class BaseSlider extends Core {
-    constructor(container: HTMLElement, config = {}) {
-      super(container.querySelector("[data-slider]")!);
-      gsap.ticker.add(this.update.bind(this));
+  import { events } from "../scripts/utils/events";
+
+  class AstroSlider extends HTMLElement {
+    slider: Core | null = null;
+
+    connectedCallback() {
+      this.slider = new Core(this.querySelector("[data-slider]")!, {
+        infinite: true,
+        snap: true,
+      });
+
+      events.on("update", this.onUpdate);
+    }
+
+    disconnectedCallback() {
+      if (this.slider) {
+        this.slider.destroy();
+        this.slider = null;
+      }
+
+      events.off("update", this.onUpdate);
+    }
+
+    onUpdate = () => this.update();
+
+    update() {
+      if (this.slider) {
+        this.slider.update();
+      }
     }
   }
 
-  new BaseSlider(document.querySelector(".slider") as HTMLElement);
+  customElements.define("astro-slider", AstroSlider);
 </script>

@@ -62,8 +62,6 @@ class App {
   async onPreloaded() {
     this.animationManager.create();
 
-    document.documentElement.classList.add("loaded");
-
     lenis.start();
   }
 
