@@ -1,0 +1,29 @@
+---
+import Image from "./image.astro";
+
+interface Props {
+  leftImage: { src: ImageMetadata; alt: string };
+  rightImage: { src: ImageMetadata; alt: string };
+}
+
+const { leftImage, rightImage } = Astro.props;
+---
+
+<section class="flex gap-grid p-grid">
+  <Image
+    src={leftImage.src}
+    alt={leftImage.alt}
+    sizes="50vw"
+    loading="eager"
+    parallax
+    className="w-full aspect-square"
+  />
+  <Image
+    src={rightImage.src}
+    alt={rightImage.alt}
+    sizes="50vw"
+    loading="eager"
+    parallax
+    className="w-full aspect-square"
+  />
+</section>

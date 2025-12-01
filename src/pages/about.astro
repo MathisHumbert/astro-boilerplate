@@ -1,0 +1,26 @@
+---
+import Hero from "../components/hero.astro";
+import Slider from "../components/slider.astro";
+import Layout from "../layouts/layout.astro";
+
+import Laputa01Image from "../images/laputa001.jpg";
+import Laputa36Image from "../images/laputa036.jpg";
+import Laputa38Image from "../images/laputa038.jpg";
+import Laputa39Image from "../images/laputa039.jpg";
+import Laputa40Image from "../images/laputa040.jpg";
+import Laputa405mage from "../images/laputa050.jpg";
+
+const sliderImages = [
+  { src: Laputa01Image, alt: "laputa" },
+  { src: Laputa36Image, alt: "laputa" },
+  { src: Laputa38Image, alt: "laputa" },
+  { src: Laputa39Image, alt: "laputa" },
+  { src: Laputa40Image, alt: "laputa" },
+  { src: Laputa405mage, alt: "laputa" },
+];
+---
+
+<Layout title="About" nextPage="home">
+  <Hero subtitle="Lorem ipsum dolor sit." titleLeft="About" titleRight="Page" />
+  <Slider images={sliderImages} />
+</Layout>

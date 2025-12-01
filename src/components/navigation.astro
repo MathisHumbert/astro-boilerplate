@@ -1,0 +1,54 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<astro-navigation>
+  <nav
+    class="fixed left-0 top-0 w-full p-grid z-navigation pointer-events-none"
+  >
+    <ul class="flex items-center gap-grid">
+      <li class="w-col-1">
+        <Icon name="totoro" class="w-16 h-16 stroke-white" />
+      </li>
+      <li class="w-col-1">
+        <a href="/" class="text-xs uppercase p-0 pointer-events-auto">Home</a>
+      </li>
+      <li class="w-col-1">
+        <a href="/about" class="text-xs uppercase p-0 pointer-events-auto">
+          About
+        </a>
+      </li>
+      <li class="w-col-1">
+        <button class="menu-button text-xs uppercase p-0 pointer-events-auto">
+          Menu
+        </button>
+      </li>
+    </ul>
+  </nav>
+</astro-navigation>
+
+<script>
+  import { events } from "../scripts/utils/events";
+
+  class AstroNavigation extends HTMLElement {
+    private button: HTMLElement | null = null;
+
+    constructor() {
+      super();
+
+      this.button = this.querySelector(".menu-button");
+    }
+
+    connectedCallback() {
+      this.button?.addEventListener("click", this.onClick);
+    }
+
+    disconnectedCallback() {
+      this.button?.removeEventListener("click", this.onClick);
+    }
+
+    onClick = () => events.emit("menu:open");
+  }
+
+  customElements.define("astro-navigation", AstroNavigation);
+</script>

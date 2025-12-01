@@ -1,0 +1,38 @@
+---
+import { Image as AstroImage } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  sizes?: string;
+  loading?: "eager" | "lazy";
+  priority?: boolean;
+  parallax?: boolean;
+  className?: string;
+}
+
+const {
+  src,
+  alt,
+  sizes = "100vw",
+  loading = "lazy",
+  priority = false,
+  parallax = false,
+  className,
+} = Astro.props;
+---
+
+<div
+  class:list={["relative", parallax && "overflow-hidden", className]}
+  data-animation={parallax ? "parallax" : ""}
+>
+  <AstroImage
+    src={src}
+    alt={alt}
+    sizes={sizes}
+    class:list={["img-cover", parallax && "-left-[5%] w-[110%] h-[110%]"]}
+    loading={loading}
+    priority={priority}
+    draggable={false}
+  />
+</div>

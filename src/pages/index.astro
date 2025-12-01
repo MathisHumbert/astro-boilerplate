@@ -1,0 +1,38 @@
+---
+import HeadingText from "../components/heading-text.astro";
+import Hero from "../components/hero.astro";
+import ImageCards from "../components/image-cards.astro";
+import Layout from "../layouts/layout.astro";
+import Slider from "../components/slider.astro";
+
+import Howl11Image from "../images/howl011.jpg";
+import Howl12Image from "../images/howl012.jpg";
+import Howl15Image from "../images/howl015.jpg";
+import Howl16Image from "../images/howl016.jpg";
+import Howl48Image from "../images/howl048.jpg";
+import Howl49Image from "../images/howl049.jpg";
+import LaputaImage from "../images/laputa036.jpg";
+
+const sliderImages = [
+  { src: Howl11Image, alt: "howl" },
+  { src: Howl12Image, alt: "howl" },
+  { src: Howl15Image, alt: "howl" },
+  { src: Howl16Image, alt: "howl" },
+  { src: Howl48Image, alt: "howl" },
+  { src: Howl49Image, alt: "howl" },
+];
+---
+
+<Layout title="Home" nextPage="about">
+  <Hero subtitle="Lorem ipsum dolor sit." titleLeft="Home" titleRight="Page" />
+  <ImageCards
+    leftImage={{ src: Howl11Image, alt: "howl" }}
+    rightImage={{ src: LaputaImage, alt: "laputa" }}
+  />
+  <HeadingText
+    title="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, rem? Possimus, quis amet fugit dolore repellat quia in dolores. Accusantium fugiat quis, tempore cupiditate sapiente laborum?"
+    subtitle="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab consequatur voluptatem debitis."
+    text=" Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi quos tempora dolor facilis non iste laborum accusamus, expedita libero autem. Vitae nobis facere reiciendis dolorum voluptatem odio earum. Recusandae exercitationem dolorum minus placeat nulla. Aut doloremque rem rerum sunt voluptates."
+  />
+  <Slider images={sliderImages} />
+</Layout>

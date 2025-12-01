@@ -1,0 +1,27 @@
+---
+interface Props {
+  nextPage: string;
+}
+
+const { nextPage } = Astro.props;
+
+const getHref = () => {
+  if (!nextPage) return "/";
+  return nextPage === "home" ? "/" : `/${nextPage}`;
+};
+
+const getLabel = () => {
+  if (!nextPage) return "Home";
+  return nextPage === "home" ? "Home" : "About";
+};
+---
+
+<footer class="relative flex gap-grid py-48 px-grid">
+  <span
+    class="absolute top-0 left-grid w-[calc(100%-var(--grid-margin)*2)] h-px bg-current"
+    data-animation="line"></span>
+  <p class="text-xs uppercase w-col-1">Next Page</p>
+  <a href={getHref()} class="text-xs uppercase ml-col-2-gap">
+    {getLabel()}
+  </a>
+</footer>

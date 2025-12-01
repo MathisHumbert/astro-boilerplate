@@ -1,0 +1,27 @@
+---
+interface Props {
+  subtitle: string;
+  titleLeft: string;
+  titleRight: string;
+}
+const { subtitle, titleLeft, titleRight } = Astro.props;
+---
+
+<section class="w-full h-dvh flex flex-col justify-center gap-40 p-grid">
+  {
+    subtitle && (
+      <p class="text-xs ml-col-6-gap">
+        {subtitle}
+        <br />
+      </p>
+    )
+  }
+  <header>
+    <h2 class="text-heading-l font-bold uppercase flex flex-col">
+      <span data-animation="text" data-delay="0.1">{titleLeft}</span>
+      <span class="ml-col-6-gap" data-animation="text" data-delay="0.2"
+        >{titleRight}</span
+      >
+    </h2>
+  </header>
+</section>

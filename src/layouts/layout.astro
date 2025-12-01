@@ -1,0 +1,84 @@
+---
+import "@styles/index.css";
+
+import Navigation from "../components/navigation.astro";
+import Footer from "../components/footer.astro";
+import Menu from "../components/menu.astro";
+
+interface Props {
+  title: string;
+  nextPage: string;
+}
+
+const { title, nextPage } = Astro.props;
+
+const isDev = import.meta.env.DEV;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <base href="/" />
+
+    <title>{title}</title>
+
+    <meta name="description" content="description" />
+    <meta name="keywords" content="" />
+
+    <link rel="canonical" href="https://website.com" />
+
+    <meta name="theme-color" content="#dedede" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="name" />
+    <meta property="og:url" content="https://website.com" />
+    <meta property="og:title" content="title" />
+    <meta property="og:description" content="description" />
+    <meta property="og:image" content="url" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="title" />
+    <meta name="twitter:description" content="description" />
+    <meta name="twitter:image" content="url" />
+
+    <meta name="author" content="Mathis Humbert" />
+    <link rel="author" href="https://mathishumbert.com/" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <script src="../scripts/index.js"></script>
+
+    <Navigation />
+    <Menu />
+    {
+      isDev ? (
+        <main class="content">
+          <div id="swup" class="page">
+            <h1 class="sr-only">{title}</h1>
+            <slot />
+            <Footer nextPage={nextPage} />
+          </div>
+        </main>
+      ) : (
+        <div id="scroll-wrapper">
+          <div id="scroll-content">
+            <main class="content">
+              <div id="swup" class="page">
+                <h1 class="sr-only">{title}</h1>
+                <slot />
+                <Footer nextPage={nextPage} />
+              </div>
+            </main>
+          </div>
+        </div>
+      )
+    }
+  </body>
+</html>

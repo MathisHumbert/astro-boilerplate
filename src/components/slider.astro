@@ -1,0 +1,56 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  images: { src: ImageMetadata; alt: string }[];
+}
+
+const { images } = Astro.props;
+---
+
+<section class:list={["w-full flex flex-col gap-8 p-grid", "slider"]}>
+  <h2 class="text-xs uppercase">Slider</h2>
+  <div class="w-full max-w-full overflow-hidden">
+    <div data-slider class="flex ml-col-3">
+      {
+        images &&
+          images.map((image) => (
+            <div class="relative w-col-3-gap shrink-0 flex flex-col gap-[1.2rem] pl-8 pr-8">
+              <figure class="relative w-full aspect-square">
+                {image?.src && (
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    sizes="50vw"
+                    class="img-cover"
+                    loading="eager"
+                    draggable={false}
+                  />
+                )}
+              </figure>
+              <p class="text-xs uppercase">Lorem.</p>
+              <p class="text-s">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
+                iure voluptatibus iusto? Vitae, asperiores.
+              </p>
+            </div>
+          ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import Core from "smooothy";
+  import gsap from "gsap";
+
+  class BaseSlider extends Core {
+    constructor(container: HTMLElement, config = {}) {
+      super(container.querySelector("[data-slider]")!);
+      gsap.ticker.add(this.update.bind(this));
+    }
+  }
+
+  new BaseSlider(document.querySelector(".slider") as HTMLElement);
+</script>
