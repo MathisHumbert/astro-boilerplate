@@ -1,28 +1,23 @@
-import gsap from "gsap";
-
 import Animation from "./Animation";
-import { easeInOut } from "../utils/easing";
 
 export default class Line extends Animation {
   constructor({ element }) {
     super({ element, elements: {} });
 
     this.origin = this.element.dataset.origin || "left";
+
+    this.element.style.transformOrigin = this.origin;
+    this.element.style.setProperty("--delay", `${this.delay}s`);
   }
 
   animateIn() {
-    gsap.to(this.element, {
-      scale: 1,
-      delay: this.delay,
-      duration: 1.25,
-      ease: easeInOut,
-    });
+    this.element.classList.add("is-animated");
 
     super.animateIn();
   }
 
   animateOut() {
-    gsap.set(this.element, { scale: 0, transformOrigin: this.origin });
+    this.element.classList.remove("is-animated");
 
     super.animateOut();
   }

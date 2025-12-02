@@ -4,13 +4,14 @@ export default class Animation {
   constructor({ element, elements }) {
     AutoBind(this);
 
-    const { delay, target, threshold } = element.dataset;
+    const { delay, target, threshold, once } = element.dataset;
 
     this.element = element;
     this.elements = elements;
 
     this.delay = isNaN(Number(delay)) ? 0 : Number(delay);
     this.threshold = isNaN(Number(threshold)) ? 0 : Number(threshold);
+    this.once = once === "false" ? false : true;
 
     this.target = target ? element.closest(target) : element;
 
@@ -45,9 +46,10 @@ export default class Animation {
           if (!this.isVisible && entry.isIntersecting) {
             this.animateIn();
 
-            // comment to repeat animation
-            this.observer.unobserve(this.target);
-          } else if (!entry.isIntersecting && this.isVisible) {
+            if (this.once) {
+              this.observer.unobserve(this.target);
+            }
+          } else if (!this.once && !entry.isIntersecting && this.isVisible) {
             this.animateOut();
           }
         });

@@ -1,8 +1,7 @@
-import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 
 import Animation from "./Animation";
-import { expoOut } from "../utils/easing";
+import { each } from "../utils/dom";
 
 export default class Text extends Animation {
   constructor({ element }) {
@@ -12,32 +11,22 @@ export default class Text extends Animation {
       type: "lines",
       mask: "lines",
       autoSplit: true,
-      onSplit: (self) => {
-        if (!this.isAnimated) {
-          gsap.set(self.lines, {
-            yPercent: 125,
-          });
-        }
-      },
+    });
+
+    each(this.elements.spans.lines, (line, index) => {
+      line.style.setProperty("--index", index);
+      line.style.setProperty("--delay", `${this.delay}s`);
     });
   }
 
   animateIn() {
-    gsap.to(this.elements.spans.lines, {
-      yPercent: 0,
-      ease: expoOut,
-      duration: 1.5,
-      stagger: 0.1,
-      delay: this.delay,
-    });
+    this.element.classList.add("is-animated");
 
     super.animateIn();
   }
 
   animateOut() {
-    gsap.set(this.elements.spans.lines, {
-      yPercent: 125,
-    });
+    this.element.classList.remove("is-animated");
 
     super.animateOut();
   }

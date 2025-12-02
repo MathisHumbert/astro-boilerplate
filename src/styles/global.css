@@ -129,3 +129,40 @@ canvas {
   pointer-events: none;
   z-index: var(--z-canvas);
 }
+
+[data-animation="text"] div div {
+  transform: translateY(125%);
+  transition: transform 1.5s var(--expo-out);
+  transition-delay: calc(var(--delay, 0s) + (var(--index, 0) * 0.1s));
+  will-change: transform;
+}
+
+[data-animation="text"].is-animated div div {
+  transform: translateY(0%);
+}
+
+[data-animation="line"] {
+  transform: scaleX(0);
+  transition: transform 1.25s var(--ease-in-out);
+  transition-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+[data-animation="line"].is-animated {
+  transform: scaleX(1);
+}
+
+[data-animation="appear"] {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+  transition-delay: var(--delay, 0s);
+  will-change: opacity;
+}
+
+[data-animation="appear"].is-animated {
+  opacity: 1;
+}
+
+[data-animation="parallax"] img {
+  will-change: transform;
+}

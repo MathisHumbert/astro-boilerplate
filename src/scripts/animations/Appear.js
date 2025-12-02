@@ -1,26 +1,20 @@
-import gsap from "gsap";
-
 import Animation from "./Animation";
-import { easeOut } from "../utils/easing";
 
 export default class Appear extends Animation {
   constructor({ element }) {
     super({ element, elements: {} });
+
+    this.element.style.setProperty("--delay", `${this.delay}s`);
   }
 
   animateIn() {
-    gsap.to(this.element, {
-      opacity: 1,
-      delay: this.delay,
-      duration: 0.6,
-      ease: easeOut,
-    });
+    this.element.classList.add("is-animated");
 
     super.animateIn();
   }
 
   animateOut() {
-    gsap.set(this.element, { opacity: 0 });
+    this.element.classList.remove("is-animated");
 
     super.animateOut();
   }

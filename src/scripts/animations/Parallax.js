@@ -12,7 +12,7 @@ export default class Parallax extends Animation {
     this.elements.img = element.querySelector("img");
   }
 
-  animateIn() {
+  createAnimation() {
     gsap.fromTo(
       this.elements.img,
       {
@@ -29,11 +29,5 @@ export default class Parallax extends Animation {
         },
       },
     );
-
-    super.animateIn();
-  }
-
-  animateOut() {
-    super.animateOut();
   }
 }
